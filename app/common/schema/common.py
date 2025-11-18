@@ -24,6 +24,20 @@ class ErrorResponse(APIResponse[Any]):
     data: Optional[Any] = Field(None, description="에러 상세 메시지")
     model_config = ConfigDict(title="ErrorResponse")
 
+class LogCreate(BaseModel):
+    app_id: str
+    level: str
+    message: str
+
+class LogDTO(BaseModel):
+    id: int
+    level: str
+    message: str
+    user_id: int | None = None
+
+    class Config:
+        from_attributes = True
+
 
 def response_maker(include: list[int] = None) -> dict[int, dict]:
     """
